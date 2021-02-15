@@ -34,19 +34,25 @@ void LinearAccelStepperActuator::init() {
 // positive or negative depending on your setup and switch position
 void LinearAccelStepperActuator::home() {
   homing = true;
-  moving = true;
+  
+  move(72000);
 }
 
 void LinearAccelStepperActuator::update() {
   if (homing == true){
-    if (homeSwitchState() == HIGH) {
+    if (homeSwitchState() == 1) {
       stop();
       setCurrentPosition(0);
     } else {
       stepper->runSpeed();
     }
   } else {
-    if (accelerationEnabled == true) {
+	if (homeSwitchState() == HIGH){
+		stop();
+		setCurrentPosition(0);
+		moving = false;
+	}
+	if (accelerationEnabled == true) {
       stepper->run();
     } else {
       stepper->runSpeedToPosition();
