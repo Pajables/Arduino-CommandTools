@@ -61,7 +61,7 @@ class LinearAccelStepperActuator {
 
     float lastSetSpeed;
 
-    boolean revertSwitchEnabled;
+    boolean revertSwitchEnabled = false;
 
 };
 
